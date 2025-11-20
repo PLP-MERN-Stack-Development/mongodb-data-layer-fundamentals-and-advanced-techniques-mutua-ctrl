@@ -1,0 +1,151 @@
+// ================================
+//  MONGODB – SOLD LAPTOPS DATABASE
+// ================================
+
+import mongoose from "mongoose";
+
+// 1. CONNECT TO MONGODB
+mongoose
+  .connect("mongodb://127.0.0.1:27017/computerStore")
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log(err));
+
+// 2. CREATE SCHEMA
+const soldDeviceSchema = new mongoose.Schema({
+  name: String,
+  brand: String,
+  processor: String,
+  ram: String,
+  storage: String,
+  price: Number,
+  dateSold: Date,
+  customerName: String,
+  paymentMethod: String,
+});
+
+// 3. CREATE MODEL
+const SoldDevice = mongoose.model("SoldDevice", soldDeviceSchema);
+
+// 4. SAMPLE DATA (10 LAPTOPS)
+const soldLaptops = [
+  {
+    name: "HP Pavilion 15",
+    brand: "HP",
+    processor: "Intel Core i5 10th Gen",
+    ram: "8GB",
+    storage: "512GB SSD",
+    price: 58000,
+    dateSold: new Date("2025-01-12"),
+    customerName: "John Mwangi",
+    paymentMethod: "M-Pesa",
+  },
+  {
+    name: "Dell Inspiron 14",
+    brand: "Dell",
+    processor: "Intel Core i7 11th Gen",
+    ram: "16GB",
+    storage: "1TB SSD",
+    price: 92000,
+    dateSold: new Date("2025-02-04"),
+    customerName: "Mary Atieno",
+    paymentMethod: "PayPal",
+  },
+  {
+    name: "Lenovo ThinkPad T14",
+    brand: "Lenovo",
+    processor: "AMD Ryzen 5",
+    ram: "16GB",
+    storage: "512GB SSD",
+    price: 78000,
+    dateSold: new Date("2025-03-01"),
+    customerName: "Sam Njoroge",
+    paymentMethod: "Cash",
+  },
+  {
+    name: "Acer Aspire 5",
+    brand: "Acer",
+    processor: "Intel Core i5 8th Gen",
+    ram: "8GB",
+    storage: "256GB SSD",
+    price: 48000,
+    dateSold: new Date("2025-02-20"),
+    customerName: "Kevin Otieno",
+    paymentMethod: "M-Pesa",
+  },
+  {
+    name: "ASUS VivoBook 15",
+    brand: "ASUS",
+    processor: "Intel Core i3 11th Gen",
+    ram: "8GB",
+    storage: "256GB SSD",
+    price: 42000,
+    dateSold: new Date("2025-01-30"),
+    customerName: "Rachel Wambui",
+    paymentMethod: "Card",
+  },
+  {
+    name: "MacBook Air M1",
+    brand: "Apple",
+    processor: "Apple M1",
+    ram: "8GB",
+    storage: "256GB SSD",
+    price: 128000,
+    dateSold: new Date("2025-03-05"),
+    customerName: "Brian Kilonzo",
+    paymentMethod: "PayPal",
+  },
+  {
+    name: "HP EliteBook 840 G6",
+    brand: "HP",
+    processor: "Intel Core i7 8th Gen",
+    ram: "16GB",
+    storage: "512GB SSD",
+    price: 86000,
+    dateSold: new Date("2025-02-11"),
+    customerName: "Janet Cherono",
+    paymentMethod: "M-Pesa",
+  },
+  {
+    name: "Dell XPS 13",
+    brand: "Dell",
+    processor: "Intel Core i7 12th Gen",
+    ram: "16GB",
+    storage: "1TB SSD",
+    price: 145000,
+    dateSold: new Date("2025-03-15"),
+    customerName: "Lloyd Mutua",
+    paymentMethod: "Card",
+  },
+  {
+    name: "Lenovo IdeaPad 3",
+    brand: "Lenovo",
+    processor: "Intel Core i5 10th Gen",
+    ram: "8GB",
+    storage: "512GB SSD",
+    price: 53000,
+    dateSold: new Date("2025-01-22"),
+    customerName: "Hellen Achieng",
+    paymentMethod: "M-Pesa",
+  },
+  {
+    name: "Acer Nitro 5",
+    brand: "Acer",
+    processor: "Intel Core i7 9th Gen",
+    ram: "16GB",
+    storage: "1TB SSD",
+    price: 105000,
+    dateSold: new Date("2025-02-14"),
+    customerName: "Peter Githinji",
+    paymentMethod: "PayPal",
+  },
+];
+
+// 5. INSERT DATA
+async function seedDB() {
+  await SoldDevice.deleteMany({});
+  await SoldDevice.insertMany(soldLaptops);
+  console.log("10 Sold Laptops Added Successfully!");
+  mongoose.connection.close();
+}
+
+seedDB();
